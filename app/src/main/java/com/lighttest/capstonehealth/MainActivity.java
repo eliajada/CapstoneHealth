@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         String fname = String.valueOf(txtFirstName);
 
+        /**
         editor.putString("FirstName", String.valueOf(txtFirstName));
         editor.putString("LastName", String.valueOf(txtLastName));
         editor.putString("Weight", String.valueOf(txtWeight));
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
 
         Toast.makeText(this, "LOL" + fname, Toast.LENGTH_SHORT).show();
+         **/
     }
 
     public void logInClicked(View view) {
