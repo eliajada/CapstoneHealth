@@ -1,5 +1,6 @@
 package com.lighttest.capstonehealth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -112,7 +113,7 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         dropdown.setOnItemSelectedListener(this);
 
 
-        SharedPreferences mPrefs = getSharedPreferences("MainMenuValue", 0);
+        SharedPreferences mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", Context.MODE_PRIVATE);
         String str = mPrefs.getString("FirstName", "defaultvalue");
 
         Toast.makeText(this, "First Name: " + str, Toast.LENGTH_SHORT).show();
