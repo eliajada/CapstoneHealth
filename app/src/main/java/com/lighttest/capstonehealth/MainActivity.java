@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "LOL" + fname, Toast.LENGTH_SHORT).show();
          **/
+
+        sharedPreferences.edit().putString("firstName", String.valueOf(txtFirstName)).apply();
     }
 
     public void logInClicked(View view) {
@@ -88,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
 
 
+        sharedPreferences = this.getSharedPreferences("com.lighttest.sharedpreferences", Context.MODE_PRIVATE);
+
+
+        /**
          mPrefs = getSharedPreferences("MainMenuValue", Context.MODE_PRIVATE);
         //Give any name for //preference as I have given "IDvalue" and value 0.
         editor = mPrefs.edit();
@@ -96,6 +102,6 @@ public class MainActivity extends AppCompatActivity {
         // give key value as "sound" you mentioned and value what you // to want give as "1" in you mentioned
         // editor.commit();
 
-
+        **/
     }
 }
