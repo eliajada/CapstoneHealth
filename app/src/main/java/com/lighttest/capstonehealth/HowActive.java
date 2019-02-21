@@ -114,9 +114,16 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
 
 
         SharedPreferences mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
-        String str = mPrefs.getString("firstName", "noData");
+        String fName = mPrefs.getString("FIRST_NAME", "noData");
+        /**
+        String lName = mPrefs.getString("LAST_NAME", "noData");
+        Float weight = mPrefs.getFloat("WEIGHT_LBS", 0);
+        int height = mPrefs.getInt("HEIGHT_IN", 0);
+        int age = mPrefs.getInt("AGE", 0);
+        String gender = mPrefs.getString("GENDER", "noData");
+         **/
 
-        Toast.makeText(this, "First Name: " + str, Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(this, "First Name: " + fName + "\nLast Name: " + lName + "\nWeight: " + weight + " lbs\nHeight: " + height + " inches\nAge: " + age + " years old\nGender: " + gender, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "First Name: "+ fName, Toast.LENGTH_SHORT).show();
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,15 +27,17 @@ public class MainActivity extends AppCompatActivity {
     EditText txtWeight;
     EditText txtHeight;
     EditText txtAge;
+    EditText txtGender;
+
+    Spinner dropdown;
+
 
 
     public void toSecondActivity(View view) {
 
         Intent intent = new Intent(getApplicationContext(), HowActive.class);
 
-        startActivity(intent);
-
-        String fName = txtFirstName.getText().toString();
+        //String fName = txtFirstName.getText().toString();
 
         /**
         editor.putString("FirstName", String.valueOf(txtFirstName));
@@ -53,18 +56,28 @@ public class MainActivity extends AppCompatActivity {
         //initialized the editor using the above sharedPreferences variable
         editor = mPrefs.edit();
         //added the string to pass to the next activity, named it and slapped in the fName variable from above for the testing
-        editor.putString("firstName", fName);
+        editor.putString("FIRST_NAME", txtFirstName.getText().toString());
+        /**
+        editor.putString("LAST_NAME", txtLastName.getText().toString());
+        editor.putFloat("WEIGHT_LBS", Float.valueOf(txtWeight.getText().toString()));
+        editor.putInt("HEIGHT_IN", Integer.valueOf(txtHeight.getText().toString()));
+        editor.putInt("AGE", Integer.valueOf(txtAge.getText().toString()));
+        editor.putString("GENDER", dropdown.getSelectedItem().toString());
+         **/
         //Studio wants me to try using apply(), but I think I'll stick with commit() until I more understand this stuff
         editor.commit();
+
+        startActivity(intent);
     }
 
     public void logInClicked(View view) {
 
-        EditText txtFirstName = (EditText) findViewById(R.id.textFirstName);
-        EditText txtLastName = (EditText) findViewById(R.id.textLastName);
-        EditText txtWeight = (EditText) findViewById(R.id.textWeight);
-        EditText txtHeight = (EditText) findViewById(R.id.textHeight);
-        EditText txtAge = (EditText) findViewById(R.id.textAge);
+        EditText txtFirstName = findViewById(R.id.textFirstName);
+        EditText txtLastName = findViewById(R.id.textLastName);
+        EditText txtWeight = findViewById(R.id.textWeight);
+        EditText txtHeight = findViewById(R.id.textHeight);
+        EditText txtAge = findViewById(R.id.textAge);
+        EditText txtGender = (EditText) dropdown.getSelectedItem();
 
 
         // Log.i("Username", txtUser.getText().toString());
@@ -84,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         txtWeight = (EditText) findViewById(R.id.textWeight);
         txtHeight = (EditText) findViewById(R.id.textHeight);
         txtAge = (EditText) findViewById(R.id.textAge);
-
-
 
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.spinner1);
