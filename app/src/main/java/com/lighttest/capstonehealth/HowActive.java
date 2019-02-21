@@ -113,8 +113,8 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         dropdown.setOnItemSelectedListener(this);
 
 
-        SharedPreferences mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", Context.MODE_PRIVATE);
-        String str = mPrefs.getString("FirstName", "defaultvalue");
+        SharedPreferences mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        String str = mPrefs.getString("firstName", "noData");
 
         Toast.makeText(this, "First Name: " + str, Toast.LENGTH_SHORT).show();
 

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
     SharedPreferences mPrefs;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-        String fname = String.valueOf(txtFirstName);
+        String fName = txtFirstName.getText().toString();
 
         /**
         editor.putString("FirstName", String.valueOf(txtFirstName));
@@ -47,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "LOL" + fname, Toast.LENGTH_SHORT).show();
          **/
 
-        sharedPreferences.edit().putString("firstName", String.valueOf(txtFirstName)).apply();
+        //sharedPreferences.edit().putString("firstName", String.valueOf(txtFirstName)).apply();
+        mPrefs = this.getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        editor = mPrefs.edit();
+        editor.putString("firstName", fName);
+        editor.commit();
     }
 
     public void logInClicked(View view) {
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // Log.i("Username", txtUser.getText().toString());
         // Log.i("Password", txtPass.getText().toString());
 
-        Toast.makeText(this, "First Name: " + txtFirstName.getText().toString() + "Last Name: " + txtLastName.getText().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "First Name: " + txtFirstName.getText().toString() + "Last Name: " + txtLastName.getText().toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
 
 
-        sharedPreferences = this.getSharedPreferences("com.lighttest.sharedpreferences", Context.MODE_PRIVATE);
+        //sharedPreferences = this.getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
 
 
         /**
