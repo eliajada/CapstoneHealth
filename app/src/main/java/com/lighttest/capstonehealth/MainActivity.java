@@ -48,9 +48,13 @@ public class MainActivity extends AppCompatActivity {
          **/
 
         //sharedPreferences.edit().putString("firstName", String.valueOf(txtFirstName)).apply();
+        //Expanded out the above to make it more readable in code
         mPrefs = this.getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        //initialized the editor using the above sharedPreferences variable
         editor = mPrefs.edit();
+        //added the string to pass to the next activity, named it and slapped in the fName variable from above for the testing
         editor.putString("firstName", fName);
+        //Studio wants me to try using apply(), but I think I'll stick with commit() until I more understand this stuff
         editor.commit();
     }
 
