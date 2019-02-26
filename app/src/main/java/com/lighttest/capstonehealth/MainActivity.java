@@ -9,29 +9,47 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //SharedPreferences sharedPreferences;
 
     SharedPreferences mPrefs;
 
     SharedPreferences.Editor editor;
-
+    List<String> list;
     EditText txtFirstName;
     EditText txtLastName;
     EditText txtWeight;
     EditText txtHeight;
     EditText txtAge;
-    EditText txtGender;
+    String txtGender;
 
     Spinner dropdown;
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        if (dropdown.getSelectedItem() != null) {
+            if (dropdown.getSelectedItem().toString() == "Male") {
+                txtGender = "Male";
+            } else {
+                txtGender = "Female";
+            }
+        }
+    }
 
+    public void onNothingSelected(AdapterView<?> parent) {
+        txtGender = "Male";
+    }
 
     public void toSecondActivity(View view) {
 
@@ -57,13 +75,12 @@ public class MainActivity extends AppCompatActivity {
         editor = mPrefs.edit();
         //added the string to pass to the next activity, named it and slapped in the fName variable from above for the testing
         editor.putString("FIRST_NAME", txtFirstName.getText().toString());
-        /**
         editor.putString("LAST_NAME", txtLastName.getText().toString());
-        editor.putFloat("WEIGHT_LBS", Float.valueOf(txtWeight.getText().toString()));
+        editor.putInt("WEIGHT_LBS", Integer.valueOf(txtWeight.getText().toString()));
         editor.putInt("HEIGHT_IN", Integer.valueOf(txtHeight.getText().toString()));
         editor.putInt("AGE", Integer.valueOf(txtAge.getText().toString()));
-        editor.putString("GENDER", dropdown.getSelectedItem().toString());
-         **/
+        editor.putString("GENDER", txtGender);
+
         //Studio wants me to try using apply(), but I think I'll stick with commit() until I more understand this stuff
         editor.commit();
 
@@ -99,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         txtAge = (EditText) findViewById(R.id.textAge);
 
         //get the spinner from the xml.
-        Spinner dropdown = findViewById(R.id.spinner1);
+        dropdown = findViewById(R.id.spinner1);
         //create a list of items for the spinner.
         String[] items = new String[]{"Male", "Female"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
@@ -107,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(this);
 
 
         //sharedPreferences = this.getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);

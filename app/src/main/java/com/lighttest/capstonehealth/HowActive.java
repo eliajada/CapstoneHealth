@@ -22,8 +22,13 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
 
     List<String> list;
     TextView activeText;
+    TextView userInfoText;
     Spinner dropdown;
-
+    String tmp;
+    SharedPreferences mPrefs;
+    SharedPreferences.Editor editor;
+    Intent intent;
+    float actFac;
     /**
     public void activeInfo(View view){
 
@@ -49,39 +54,60 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
     }
     **/
 
+    public void toNextActivity(View view){
+        intent = new Intent(this, RecommendedCaloricIntake.class);
+        if (dropdown.getSelectedItem().toString() == "Sedentary"){
+            actFac = (float) 1.2;
+        }
+        else if (dropdown.getSelectedItem().toString() == "Lightly Active"){
+            actFac = (float) 1.3;
+        }
+        else{
+            actFac = (float) 1.4;
+        }
+
+        editor.putFloat("ACTIVITY_FACTOR",actFac);
+
+        startActivity(intent);
+    }
+
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
 
         if (dropdown.getSelectedItem().toString() == "Sedentary"){
 
-            activeText.setText("If you’re sedentary, your daily activities include:\n" +
+            tmp = "If you’re sedentary, your daily activities include:\n" +
                     "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
                     "No moderate of vigorous activities.\n" +
                     "Unless you do at least 30 minutes per day of intentional exercise, you are considered sedentary.\n" +
                     "Spending most of the day sitting (e.g. bank teller, desk job)\n" +
-                    "The majority of people will be considered sedentary.");
+                    "The majority of people will be considered sedentary.";
+            activeText.setText(tmp);
+
            // Toast.makeText(this, "SEDENTARY", Toast.LENGTH_SHORT).show();
         }
 
         if (dropdown.getSelectedItem().toString() == "Lightly Active"){
 
-            activeText.setText("If you’re lightly active, your daily activities include:\n" +
+            tmp ="If you’re lightly active, your daily activities include:\n" +
                     "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
                     "Daily exercise that is equal to walking for 30 minutes at 4mph.  For an adult of average weight, this amount of exercise will burn about 130-160 additional calories.\n" +
                     "More intense exercise can be performed for less time to achieve the same goal.  For example, 15-20 minutes of vigorous activity, such as aerobics, skiing or jogging on a daily basis would put you in this category.\n" +
-                    "Spending a good part of the day on your feet (e.g. teacher, salesman)");
+                    "Spending a good part of the day on your feet (e.g. teacher, salesman)";
+            activeText.setText(tmp);
           //  Toast.makeText(this, "LIGHTLY ACTIVE", Toast.LENGTH_SHORT).show();
 
         }
 
         if (dropdown.getSelectedItem().toString() == "Active"){
 
-            activeText.setText("If you’re active, your daily activities include:\n" +
+            tmp ="If you’re active, your daily activities include:\n" +
                     "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
                     "Daily exercise that is equal to walking for 1 hour and 45 minutes at 4mph.  For an adult of average weight, this amount of exercise will burn about 470-580 additional calories.\n" +
                     "More intense exercise can be performed for less time.  For example, jogging for 50 minutes per day.\n" +
-                    "Spending a good part of the day doing some physical activity (e.g. waitress, mailman)");
+                    "Spending a good part of the day doing some physical activity (e.g. waitress, mailman)";
+            activeText.setText(tmp);
            // Toast.makeText(this, "ACTIVE", Toast.LENGTH_SHORT).show();
         }
 
@@ -99,6 +125,7 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         setContentView(R.layout.activity_how_active);
 
       activeText = (TextView) findViewById(R.id.activeText);
+      userInfoText = (TextView) findViewById(R.id.userInfoDisplay);
 
 
         //get the spinner from the xml.
@@ -113,17 +140,21 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         dropdown.setOnItemSelectedListener(this);
 
 
-        SharedPreferences mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        editor = mPrefs.edit();
         String fName = mPrefs.getString("FIRST_NAME", "noData");
-        /**
         String lName = mPrefs.getString("LAST_NAME", "noData");
-        Float weight = mPrefs.getFloat("WEIGHT_LBS", 0);
-        int height = mPrefs.getInt("HEIGHT_IN", 0);
-        int age = mPrefs.getInt("AGE", 0);
+        Integer weight = mPrefs.getInt("WEIGHT_LBS", 0);
+        Integer height = mPrefs.getInt("HEIGHT_IN", 0);
+        Integer age = mPrefs.getInt("AGE", 0);
         String gender = mPrefs.getString("GENDER", "noData");
-         **/
+
+        String tmpText = ("Name: " + fName + " " + lName + "\nWeight: " + weight + " lbs\nHeight: " + height + " inches\nAge: " + age + " years old\nGender: " + gender);
+        userInfoText.setText(tmpText);
+
+
 
         //Toast.makeText(this, "First Name: " + fName + "\nLast Name: " + lName + "\nWeight: " + weight + " lbs\nHeight: " + height + " inches\nAge: " + age + " years old\nGender: " + gender, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "First Name: "+ fName, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Name: "+ fName + " " + lName, Toast.LENGTH_SHORT).show();
     }
 }
