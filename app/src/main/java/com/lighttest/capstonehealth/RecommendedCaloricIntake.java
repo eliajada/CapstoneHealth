@@ -12,6 +12,8 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     float suggestedIntake;
     float activityFactor;
     int age;
+    double inchToCMRatio = 2.54;
+    double lbsToKGRatio = 0.453592;
     SharedPreferences mPref;
     SharedPreferences.Editor editor;
     TextView calorieText;
@@ -29,8 +31,8 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
             gender = 1;
         }
 
-        height = (float) (mPref.getInt("HEIGHT_IN", 0) * 2.54);
-        weight = (float) (mPref.getInt("WEIGHT_LBS", 0) * 0.453592);
+        height = (float) (mPref.getInt("HEIGHT", 0) * inchToCMRatio);
+        weight = (float) (mPref.getInt("WEIGHT", 0) * lbsToKGRatio);
         activityFactor = mPref.getFloat("ACTIVITY_FACTOR", (float) 1.3);
         age = mPref.getInt("AGE", 0);
         if (gender == 0){
@@ -41,7 +43,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         }
 
         calorieText = findViewById(R.id.recCalories);
-        String tmp = "Recommended Calories:\n" + suggestedIntake;
+        String tmp = "Recommended Calories:\n" + Math.round(suggestedIntake);
         calorieText.setText(tmp);
     }
 }

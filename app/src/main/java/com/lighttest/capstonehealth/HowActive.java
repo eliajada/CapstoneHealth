@@ -66,7 +66,9 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
             actFac = (float) 1.4;
         }
 
+        editor = mPrefs.edit();
         editor.putFloat("ACTIVITY_FACTOR",actFac);
+        editor.apply();
 
         startActivity(intent);
     }
@@ -124,8 +126,8 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_active);
 
-      activeText = (TextView) findViewById(R.id.activeText);
-      userInfoText = (TextView) findViewById(R.id.userInfoDisplay);
+      activeText = findViewById(R.id.activeText);
+      userInfoText = findViewById(R.id.userInfoDisplay);
 
 
         //get the spinner from the xml.
@@ -141,11 +143,10 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
 
 
         mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
-        editor = mPrefs.edit();
         String fName = mPrefs.getString("FIRST_NAME", "noData");
         String lName = mPrefs.getString("LAST_NAME", "noData");
-        Integer weight = mPrefs.getInt("WEIGHT_LBS", 0);
-        Integer height = mPrefs.getInt("HEIGHT_IN", 0);
+        Integer weight = mPrefs.getInt("WEIGHT", 0);
+        Integer height = mPrefs.getInt("HEIGHT", 0);
         Integer age = mPrefs.getInt("AGE", 0);
         String gender = mPrefs.getString("GENDER", "noData");
 
