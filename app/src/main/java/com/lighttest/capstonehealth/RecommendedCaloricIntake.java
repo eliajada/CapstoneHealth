@@ -16,13 +16,20 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     double lbsToKGRatio = 0.453592;
     SharedPreferences mPref;
     SharedPreferences.Editor editor;
+    String tmpStr;
+    TextView greetingText;
     TextView calorieText;
+    TextView loseWeightText;
+    TextView gainWeightText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended_caloric_intake);
         mPref = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
+        greetingText = findViewById(R.id.greetingText);
+        tmpStr = "Hello, " + mPref.getString("FIRST_NAME", "noData") + "!";
+        greetingText.setText(tmpStr);
 
         if (mPref.getString("GENDER", "noData") == "Male"){
             gender = 0;
@@ -43,7 +50,15 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         }
 
         calorieText = findViewById(R.id.recCalories);
-        String tmp = "Recommended Calories:\n" + Math.round(suggestedIntake);
-        calorieText.setText(tmp);
+        tmpStr = "Your Recommended Daily Intake:\n" + Math.round(suggestedIntake) + " Calories";
+        calorieText.setText(tmpStr);
+
+        loseWeightText = findViewById(R.id.twentyPercentLess);
+        tmpStr = "Your Recommended Daily Intake for Weight Loss:\n" + Math.round(suggestedIntake * 0.8) + " Calories";
+        loseWeightText.setText(tmpStr);
+
+        gainWeightText = findViewById(R.id.twentyPercentMore);
+        tmpStr = "Your Recommended Daily Intake for Weight Gain:\n" + Math.round(suggestedIntake * 1.2) + " Calories";
+        gainWeightText.setText(tmpStr);
     }
 }

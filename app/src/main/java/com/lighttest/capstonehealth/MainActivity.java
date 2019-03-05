@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mPrefs = this.getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
         //initialized the editor using the above sharedPreferences variable
         editor = mPrefs.edit();
-        //added the string to pass to the next activity, named it and slapped in the fName variable from above for the testing
+        //add the user information into SharedPreferences for use throughout the app
         editor.putString("FIRST_NAME", txtFirstName.getText().toString());
         editor.putString("LAST_NAME", txtLastName.getText().toString());
         editor.putInt("WEIGHT", Integer.valueOf(txtWeight.getText().toString()));
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         editor.putInt("AGE", Integer.valueOf(txtAge.getText().toString()));
         editor.putString("GENDER", txtGender);
 
-        //Studio wants me to try using apply(), but I think I'll stick with commit() until I more understand this stuff
+        //Apply the changes made to SharedPreferences
         editor.apply();
 
         startActivity(intent);
