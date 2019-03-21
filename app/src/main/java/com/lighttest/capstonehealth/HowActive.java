@@ -22,7 +22,6 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
 
     List<String> list;
     TextView activeText;
-    TextView userInfoText;
     Spinner dropdown;
     String tmp;
     SharedPreferences mPrefs;
@@ -127,7 +126,6 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         setContentView(R.layout.activity_how_active);
 
       activeText = findViewById(R.id.activeText);
-      userInfoText = findViewById(R.id.userInfoDisplay);
 
 
         //get the spinner from the xml.
@@ -150,8 +148,7 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         Integer age = mPrefs.getInt("AGE", 0);
         String gender = mPrefs.getString("GENDER", "noData");
 
-        String tmpText = ("Name: " + fName + " " + lName + "\nWeight: " + weight + " lbs\nHeight: " + height + " inches\nAge: " + age + " years old\nGender: " + gender);
-        userInfoText.setText(tmpText);
+
 
 
 

@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,7 +34,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText txtHeight;
     EditText txtAge;
     String txtGender;
-
+    int intGoal;
+    boolean metric;
+    Switch metricSwitch;
+    Spinner goal;
     Spinner dropdown;
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -42,6 +47,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 txtGender = "Male";
             } else {
                 txtGender = "Female";
+            }
+        }
+        if (goal.getSelectedItem() != null){
+            if (goal.getSelectedItem().toString() == "Maintain Weight"){
+                intGoal = 1;
+            }
+            else if (goal.getSelectedItem().toString() == "Gain Weight"){
+                intGoal = 3;
+            }
+            else{
+                intGoal = 2;
             }
         }
     }
@@ -67,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         editor.putInt("HEIGHT", Integer.valueOf(txtHeight.getText().toString()));
         editor.putInt("AGE", Integer.valueOf(txtAge.getText().toString()));
         editor.putString("GENDER", txtGender);
+        editor.putBoolean("METRIC", metric);
+        editor.putInt("GOAL", intGoal);
 
         //Apply the changes made to SharedPreferences
         editor.apply();
@@ -101,6 +119,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
+        metric = false;
+        metricSwitch = findViewById(R.id.switch1);
+
+        metricSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if (isChecked){
+                    metric = true;
+                    txtWeight.setHint("Weight (kgs)");
+                    txtHeight.setHint("Height (cm)");
+                }
+                else{
+                    metric = false;
+                    txtWeight.setHint("Weight (lbs)");
+                    txtHeight.setHint("Height (inches)");
+                }
+            }
+        });
+
         txtFirstName = findViewById(R.id.textFirstName);
         txtLastName = findViewById(R.id.textLastName);
         txtWeight = findViewById(R.id.textWeight);
@@ -109,14 +147,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //get the spinner from the xml.
         dropdown = findViewById(R.id.spinner1);
+        goal = findViewById(R.id.spinner2);
         //create a list of items for the spinner.
         String[] items = new String[]{"Male", "Female"};
+        String[] items2 = new String[]{"Maintain Weight", "Lose Weight", "Gain Weight"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
-
+        goal.setAdapter(adapter2);
+        goal.setOnItemSelectedListener(this);
     }
 }
