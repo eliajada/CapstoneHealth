@@ -30,8 +30,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     TextView todayCalorieText;
     TextView progressMessage;
     int caloriesToday;
-    Calendar calendar = Calendar.getInstance();
-    //int day = calendar.get(Calendar.DAY_OF_YEAR);
+    //Get the current day below
     int day = ((int) System.currentTimeMillis() / 86400000);
     static final int NEW_FOOD_REQUEST = 1;
 
