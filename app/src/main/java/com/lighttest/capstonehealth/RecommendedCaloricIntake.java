@@ -65,6 +65,10 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
             height = (float) (mPref.getInt("HEIGHT", 0) * inchToCMRatio);
             weight = (float) (mPref.getInt("WEIGHT", 0) * lbsToKGRatio);
         }
+        else {
+            height = (float) mPref.getInt("HEIGHT", 0);
+            weight = (float) mPref.getInt("WEIGHT", 0);
+        }
         activityFactor = mPref.getFloat("ACTIVITY_FACTOR", (float) 1.3);
         age = mPref.getInt("AGE", 0);
         if (gender == 0){
@@ -116,7 +120,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
                 editor.putInt("DAY_OF_PREVIOUS_MEAL", day);
                 editor.putInt("DAILY_CALORIES", caloriesToday);
                 editor.apply();
-                if (caloriesToday <= suggestedIntake - 100){
+                if (caloriesToday <= suggestedIntake - 100 && caloriesToday >= suggestedIntake - 500){
                     tmpStr = "You're almost there!";
                     progressMessage.setText(tmpStr);
                     progressMessage.setVisibility(View.VISIBLE);
