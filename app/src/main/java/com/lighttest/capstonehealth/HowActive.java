@@ -1,6 +1,5 @@
 package com.lighttest.capstonehealth;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,12 +143,5 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
         Integer height = mPrefs.getInt("HEIGHT", 0);
         Integer age = mPrefs.getInt("AGE", 0);
         String gender = mPrefs.getString("GENDER", "noData");
-
-
-
-
-
-        //Toast.makeText(this, "First Name: " + fName + "\nLast Name: " + lName + "\nWeight: " + weight + " lbs\nHeight: " + height + " inches\nAge: " + age + " years old\nGender: " + gender, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, "Name: "+ fName + " " + lName, Toast.LENGTH_SHORT).show();
     }
 }

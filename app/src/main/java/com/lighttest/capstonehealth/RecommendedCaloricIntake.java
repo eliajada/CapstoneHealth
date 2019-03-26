@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Calendar;
-
 public class RecommendedCaloricIntake extends AppCompatActivity {
     int gender;
     float height;
