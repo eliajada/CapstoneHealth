@@ -26,7 +26,7 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
     float actFac;
     /**
     public void activeInfo(View view){
-
+l
 
         if (dropdown.getSelectedItem().toString() == "Sedentary"){
 

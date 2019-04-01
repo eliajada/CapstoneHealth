@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Spinner goal;
     Spinner dropdown;
 
+   // Button button5;
+
+    public void button5(View view) {
+
+        Intent intent2 = new Intent(getApplicationContext(), StepCounter.class);
+        startActivity(intent2);
+
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         if (dropdown.getSelectedItem() != null) {
@@ -135,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         txtWeight = findViewById(R.id.textWeight);
         txtHeight = findViewById(R.id.textHeight);
         txtAge = findViewById(R.id.textAge);
+       // button5 = findViewById(R.id.button5);
 
         //get the spinner from the xml.
         dropdown = findViewById(R.id.spinner1);

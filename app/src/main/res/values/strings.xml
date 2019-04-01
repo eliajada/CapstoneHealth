@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CapstoneHealth</string>
+    <string name="title_activity_step_counter">StepCounter</string>
 </resources>
