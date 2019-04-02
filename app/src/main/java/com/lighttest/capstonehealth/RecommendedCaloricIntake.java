@@ -27,10 +27,13 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     TextView todayCalorieText;
     TextView progressMessage;
     TextView bmiText;
+    TextView burnedCalories;
     int caloriesToday;
+    int calBurn;
     //Get the current day below
     int day = ((int) System.currentTimeMillis() / 86400000);
     static final int NEW_FOOD_REQUEST = 1;
+    static final int EXERCISE_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +45,23 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         todayCalorieText = findViewById(R.id.currentCalories);
         progressMessage = findViewById(R.id.progressMessage);
         bmiText = findViewById(R.id.bmiText);
+        burnedCalories = findViewById(R.id.burnedCalories);
         tmpStr = "Hello, " + mPref.getString("FIRST_NAME", "noData") + "!";
         greetingText.setText(tmpStr);
 
         if (day != mPref.getInt("DAY_OF_PREVIOUS_MEAL", 0)){
             caloriesToday = 0;
+            calBurn = 0;
         }
         else{
             caloriesToday = mPref.getInt("DAILY_CALORIES", 0);
+            calBurn = mPref.getInt("CALORIES_BURNED_TODAY", 0);
         }
 
-        tmpStr = "Calories consumed today:\n" + mPref.getInt("DAILY_CALORIES", 0);
+        tmpStr = "Calories consumed today:\n" + caloriesToday;
         todayCalorieText.setText(tmpStr);
+        tmpStr = "Calories burned today:\n" + calBurn;
+        burnedCalories.setText(tmpStr);
 
         if (mPref.getString("GENDER", "noData") == "Male"){
             gender = 0;
@@ -157,5 +165,21 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
                 }
             }
         }
+        if (requestCode == EXERCISE_REQUEST){
+            if (resultCode == RESULT_OK){
+                calBurn += (int) Math.round((mPref.getInt("STEP_NUMBER", 0) * 0.05));
+                tmpStr = "Calories burned today:\n" + calBurn;
+                burnedCalories.setText(tmpStr);
+                editor.putInt("CALORIES_BURNED_TODAY", calBurn);
+                editor.apply();
+            }
+        }
+    }
+
+    public void button5(View view) {
+
+        Intent intent2 = new Intent(getApplicationContext(), StepCounter.class);
+        startActivityForResult(intent2, EXERCISE_REQUEST);
+
     }
 }

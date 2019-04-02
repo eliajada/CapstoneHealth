@@ -48,13 +48,16 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         start = false;
 
         stepsNum = 0;
-        editor.putInt("STEP_NUMBER",stepsNum);
-        editor.apply();
-        steps.setText("0");
+        steps.setText("0 steps.");
         Toast.makeText(this, "Steps Reset", Toast.LENGTH_SHORT).show();
     }
 
-
+    public void endRun(View view){
+        editor.putInt("STEP_NUMBER", stepsNum);
+        editor.apply();
+        setResult(RESULT_OK);
+        finish();
+    }
 
 
 
