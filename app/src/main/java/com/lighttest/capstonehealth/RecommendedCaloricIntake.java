@@ -15,6 +15,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     float weight;
     float suggestedIntake;
     float activityFactor;
+    float bmi;
     int age;
     double inchToCMRatio = 2.54;
     double lbsToKGRatio = 0.453592;
@@ -25,6 +26,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
     TextView calorieText;
     TextView todayCalorieText;
     TextView progressMessage;
+    TextView bmiText;
     int caloriesToday;
     //Get the current day below
     int day = ((int) System.currentTimeMillis() / 86400000);
@@ -39,14 +41,17 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         greetingText = findViewById(R.id.greetingText);
         todayCalorieText = findViewById(R.id.currentCalories);
         progressMessage = findViewById(R.id.progressMessage);
+        bmiText = findViewById(R.id.bmiText);
         tmpStr = "Hello, " + mPref.getString("FIRST_NAME", "noData") + "!";
         greetingText.setText(tmpStr);
+
         if (day != mPref.getInt("DAY_OF_PREVIOUS_MEAL", 0)){
             caloriesToday = 0;
         }
         else{
             caloriesToday = mPref.getInt("DAILY_CALORIES", 0);
         }
+
         tmpStr = "Calories consumed today:\n" + mPref.getInt("DAILY_CALORIES", 0);
         todayCalorieText.setText(tmpStr);
 
@@ -56,14 +61,31 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         else{
             gender = 1;
         }
+
         if (!mPref.getBoolean("METRIC", true)) {
             height = (float) (mPref.getInt("HEIGHT", 0) * inchToCMRatio);
             weight = (float) (mPref.getInt("WEIGHT", 0) * lbsToKGRatio);
+            bmi = Math.round((weight / (float) Math.pow((height / 100), 2))*10)/10;
         }
         else {
             height = (float) mPref.getInt("HEIGHT", 0);
             weight = (float) mPref.getInt("WEIGHT", 0);
+            bmi = Math.round(((703 * weight) / (float) Math.pow(height, 2)) * 10) / 10;
         }
+        if (bmi < 18.5){
+            tmpStr = "Your BMI: " + bmi + "\nYou're considered underweight.";
+        }
+        else if (bmi < 25){
+            tmpStr = "Your BMI: " + bmi + "\nYou're considered normal weight.";
+        }
+        else if (bmi < 30){
+            tmpStr = "Your BMI: " + bmi + "\nYou're considered overweight.";
+        }
+        else {
+            tmpStr = "Your BMI: " + bmi + "\nYou're considered obese.";
+        }
+        bmiText.setText(tmpStr);
+
         activityFactor = mPref.getFloat("ACTIVITY_FACTOR", (float) 1.3);
         age = mPref.getInt("AGE", 0);
         if (gender == 0){
