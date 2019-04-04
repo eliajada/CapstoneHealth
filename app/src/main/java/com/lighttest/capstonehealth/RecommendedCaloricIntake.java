@@ -60,7 +60,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
 
         tmpStr = "Calories consumed today:\n" + caloriesToday;
         todayCalorieText.setText(tmpStr);
-        tmpStr = "Calories burned today:\n" + calBurn;
+        tmpStr = "Calories actively burned today:\n" + calBurn;
         burnedCalories.setText(tmpStr);
 
         if (mPref.getString("GENDER", "noData") == "Male"){
@@ -73,12 +73,12 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         if (!mPref.getBoolean("METRIC", true)) {
             height = (float) (mPref.getInt("HEIGHT", 0) * inchToCMRatio);
             weight = (float) (mPref.getInt("WEIGHT", 0) * lbsToKGRatio);
-            bmi = Math.round((weight / (float) Math.pow((height / 100), 2))*10)/10;
+            bmi = Math.round((weight / (float) Math.pow(height / 100, 2)) *10)/10;
         }
         else {
             height = (float) mPref.getInt("HEIGHT", 0);
             weight = (float) mPref.getInt("WEIGHT", 0);
-            bmi = Math.round(((703 * weight) / (float) Math.pow(height, 2)) * 10) / 10;
+            bmi = Math.round((703 * weight / (float) Math.pow(height, 2)) * 10) / 10;
         }
         if (bmi < 18.5){
             tmpStr = "Your BMI: " + bmi + "\nYou're considered underweight.";
@@ -168,7 +168,7 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         if (requestCode == EXERCISE_REQUEST){
             if (resultCode == RESULT_OK){
                 calBurn += (int) Math.round((mPref.getInt("STEP_NUMBER", 0) * 0.05));
-                tmpStr = "Calories burned today:\n" + calBurn;
+                tmpStr = "Calories actively burned today:\n" + calBurn;
                 burnedCalories.setText(tmpStr);
                 editor.putInt("CALORIES_BURNED_TODAY", calBurn);
                 editor.apply();
@@ -181,5 +181,10 @@ public class RecommendedCaloricIntake extends AppCompatActivity {
         Intent intent2 = new Intent(getApplicationContext(), StepCounter.class);
         startActivityForResult(intent2, EXERCISE_REQUEST);
 
+    }
+
+    public void referenceButton(View view){
+        Intent refIntent = new Intent(this, ReferenceLinks.class);
+        startActivity(refIntent);
     }
 }

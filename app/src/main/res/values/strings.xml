@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CapstoneHealth</string>
     <string name="title_activity_step_counter">StepCounter</string>
+    <string name="link1">20 superfoods to help with weight loss:\\nhttps://www.healthline.com/nutrition/20-most-weight-loss-friendly-foods</string>
 </resources>
