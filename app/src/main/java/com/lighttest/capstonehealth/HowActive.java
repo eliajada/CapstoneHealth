@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +25,11 @@ public class HowActive extends AppCompatActivity implements AdapterView.OnItemSe
     SharedPreferences.Editor editor;
     Intent intent;
     float actFac;
+
+    ImageView sedRun;
+    ImageView lightRun;
+    ImageView activeRun;
+
     /**
     public void activeInfo(View view){
 l
@@ -74,38 +80,42 @@ l
 
         if (dropdown.getSelectedItem().toString() == "Sedentary"){
 
-            tmp = "If you’re sedentary, your daily activities include:\n" +
-                    "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
-                    "No moderate of vigorous activities.\n" +
-                    "Unless you do at least 30 minutes per day of intentional exercise, you are considered sedentary.\n" +
-                    "Spending most of the day sitting (e.g. bank teller, desk job)\n" +
-                    "The majority of people will be considered sedentary.";
+            tmp = "The average person is sedentary. Anyone that spends less than 30 minutes per day intentionally exercising, is considered sedentary. \n"+
+            "Some of your activities may include working at your desk, walking your dog, shopping at Publix.";
             activeText.setText(tmp);
+
+            sedRun.setVisibility(View.VISIBLE);
+            lightRun.setVisibility(View.INVISIBLE);
+            activeRun.setVisibility(View.INVISIBLE);
 
            // Toast.makeText(this, "SEDENTARY", Toast.LENGTH_SHORT).show();
         }
 
         if (dropdown.getSelectedItem().toString() == "Lightly Active"){
 
-            tmp ="If you’re lightly active, your daily activities include:\n" +
-                    "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
-                    "Daily exercise that is equal to walking for 30 minutes at 4mph.  For an adult of average weight, this amount of exercise will burn about 130-160 additional calories.\n" +
-                    "More intense exercise can be performed for less time to achieve the same goal.  For example, 15-20 minutes of vigorous activity, such as aerobics, skiing or jogging on a daily basis would put you in this category.\n" +
-                    "Spending a good part of the day on your feet (e.g. teacher, salesman)";
+            tmp ="A user that spends at least 30 minutes or more intentionally exercising.\n" +
+                    "Your activities may include walking the dog, mowing the lawn, gardening, being a car sales man, or even just jogging around the block.";
+
             activeText.setText(tmp);
+
+            sedRun.setVisibility(View.INVISIBLE);
+            lightRun.setVisibility(View.VISIBLE);
+            activeRun.setVisibility(View.INVISIBLE);
+
           //  Toast.makeText(this, "LIGHTLY ACTIVE", Toast.LENGTH_SHORT).show();
 
         }
 
         if (dropdown.getSelectedItem().toString() == "Active"){
 
-            tmp ="If you’re active, your daily activities include:\n" +
-                    "Activities of daily living only, such as shopping, cleaning, watering plants, taking out the trash, walking the dog, mowing the lawn and gardening.\n" +
-                    "Daily exercise that is equal to walking for 1 hour and 45 minutes at 4mph.  For an adult of average weight, this amount of exercise will burn about 470-580 additional calories.\n" +
-                    "More intense exercise can be performed for less time.  For example, jogging for 50 minutes per day.\n" +
-                    "Spending a good part of the day doing some physical activity (e.g. waitress, mailman)";
+            tmp ="A user that spends 1.5-2 hours out of their day intentionally exercising. \n" +
+                    "Their normal daily activities may include waiting tables, mowing the lawn, or walking their dog. However most Active users set aside an extra 1-2 hours a day just for exercise.";
             activeText.setText(tmp);
            // Toast.makeText(this, "ACTIVE", Toast.LENGTH_SHORT).show();
+
+            sedRun.setVisibility(View.INVISIBLE);
+            lightRun.setVisibility(View.INVISIBLE);
+            activeRun.setVisibility(View.VISIBLE);
         }
 
         // An item was selected. You can retrieve the selected item using
@@ -135,6 +145,10 @@ l
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
+        //images
+        sedRun = (ImageView) findViewById(R.id.sedRun);
+        lightRun = (ImageView) findViewById(R.id.lightRun);
+        activeRun = (ImageView) findViewById(R.id.activeRun);
 
         mPrefs = getSharedPreferences("com.lighttest.sharedpreferences", MODE_PRIVATE);
         String fName = mPrefs.getString("FIRST_NAME", "noData");

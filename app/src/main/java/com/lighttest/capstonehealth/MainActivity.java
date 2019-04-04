@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
@@ -31,7 +33,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Spinner goal;
     Spinner dropdown;
 
+    Button introBtn;
+    ImageView introImg;
+    Button submitBtn;
+
    // Button button5;
+
+    public void begin(View view) {
+
+        introBtn.setVisibility(View.GONE);
+        introImg.setVisibility(View.GONE);
+        submitBtn.setVisibility(View.VISIBLE);
+
+
+    }
 
     public void button5(View view) {
 
@@ -145,6 +160,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         txtHeight = findViewById(R.id.textHeight);
         txtAge = findViewById(R.id.textAge);
        // button5 = findViewById(R.id.button5);
+
+        introBtn = findViewById(R.id.introButton);
+        introImg = findViewById(R.id.introPic);
+        submitBtn = findViewById(R.id.button2);
 
         //get the spinner from the xml.
         dropdown = findViewById(R.id.spinner1);
